@@ -119,7 +119,7 @@ def build_message(results, keyword):
         block = "\n".join([
             f'{item["order_display"]}',
             f'หัวเก๋ง {short_name}',
-            "─" * 20,
+            "-" * 14,
             f'📅 {item["date"]}  |  👤 {item["supplier"]}',
             "",
             f'เครื่อง: {item["engine"]}',
