@@ -20,9 +20,17 @@ COL_NOTE2 = 10     # หมายเหตุท้าย (ขาย/กำล�
 
 
 def get_service():
-    creds = Credentials.from_service_account_file(
-        "credentials.json", scopes=SCOPES
-    )
+    import json
+    creds_json = os.environ.get("GOOGLE_CREDENTIALS_JSON")
+    if creds_json:
+        # อ่านจาก Environment Variable (Railway)
+        info = json.loads(creds_json)
+        creds = Credentials.from_service_account_info(info, scopes=SCOPES)
+    else:
+        # อ่านจากไฟล์ (local)
+        creds = Credentials.from_service_account_file(
+            "credentials.json", scopes=SCOPES
+        )
     service = build("sheets", "v4", credentials=creds)
     return service.spreadsheets()
 
